@@ -1,0 +1,26 @@
+diff --git a/README.md b/README.md
+index 22cb098..3d92eb6 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1 @@
+-# testrepo
+-test
++# test-repo-draft
+\ No newline at end of file
+diff --git a/docs/index.html b/docs/index.html
+deleted file mode 100644
+index 1db2d87..0000000
+--- a/docs/index.html
++++ /dev/null
+@@ -1,11 +0,0 @@
+-<!DOCTYPE html>
+-<html>
+-<body>
+-
+-<h2>HTML Buttons</h2>
+-<p>HTML buttons are defined with the button tag:</p>
+-
+-<button>Click me</button>
+-
+-</body>
+-</html>
