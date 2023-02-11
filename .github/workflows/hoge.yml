@@ -1,0 +1,36 @@
+on:
+  push:
+    branches: main
+
+jobs:
+  push_prod:
+    name: push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout prod
+        uses: actions/checkout@v3
+        with:
+          repository: bamboohrs/testrepo
+          path: prod
+          token: ${{ secrets.TEST_REPO_PAT }}
+      - name: git commit
+        env:
+          DRAFT_SECRET: ${{ secrets.TEST_REPO_DRAFT_PULL }}
+          GIT_SSH_COMMAND: ssh -i ~/draft_secret
+        run: |
+          cd prod
+          echo "$DRAFT_SECRET" > ~/draft_secret
+          chmod 600 ~/draft_secret
+          git remote add draft git@github.com:bamboohrs/test-repo-draft.git
+          git fetch draft
+          git diff main draft/main | git apply
+      - name: git push
+        run: |
+          cd prod
+          git pull
+          git config user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+          git config user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+          git add .
+          git commit -m "test"
+          git remote -v
+          git push origin main
